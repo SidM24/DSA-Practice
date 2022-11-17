@@ -171,6 +171,49 @@ void SuccPree(int key, Node *root, Node *&succ, Node *&pre)
     }
 }
 
+// Deletion of a Node from the the Binary Search Tree
+Node *nodedelete(Node *root, int key)
+{
+    // Base Case of the recusion
+    if (root == NULL)
+    {
+        return root;
+    }
+
+    if (key < root->data)
+    {
+        root->lchild = nodedelete(root->lchild, key);
+    }
+    else if (key > root->data)
+    {
+        root->rchild = nodedelete(root->rchild, key);
+    }
+    else
+    {
+        if (root->lchild == NULL && root->rchild == NULL)
+        {
+            return NULL;
+        }
+        else if (root->lchild == NULL)
+        {
+            Node *temp = root->rchild;
+            free(root);
+            return temp;
+        }
+        else if (root->rchild == NULL)
+        {
+            Node *temp = root->lchild;
+            free(root);
+            return temp;
+        }
+        // For 2 child
+        Node *temp = minimum(root->rchild);
+        root->data = temp->data;
+        root->rchild = nodedelete(root->rchild, temp->data);
+    }
+    return root;
+}
+
 int main()
 {
     Node *root = NULL;
@@ -185,21 +228,24 @@ int main()
     inorder(root);
     cout << endl;
 
-    Node *pre = NULL;
-    Node *succ = NULL;
-
-    SuccPree(16, root, succ, pre);
-    if (pre != NULL)
-        cout << "Precessor is: " << pre->data << endl;
-    else
-        cout << "No Precessor" << endl;
-
-    if (succ != NULL)
-        cout << "Successor is: " << succ->data << endl;
-    else
-        cout << "No Successor" << endl;
+    root = nodedelete(root, 41);
+    inorder(root);
+    cout << endl;
 
     return 0;
+
+    // Node *pre = NULL;
+    // Node *succ = NULL;
+    // SuccPree(55, root, succ, pre);
+    // if (pre != NULL)
+    //     cout << "Precessor is: " << pre->data << endl;
+    // else
+    //     cout << "No Precessor" << endl;
+
+    // if (succ != NULL)
+    //     cout << "Successor is: " << succ->data << endl;
+    // else
+    //     cout << "No Successor" << endl;
 
     // preorder(root);
     // cout << endl;
