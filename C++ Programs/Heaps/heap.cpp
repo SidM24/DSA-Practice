@@ -1,6 +1,9 @@
 #include <iostream>
 using namespace std;
 
+// Following function is to create the max heap
+// for min heap find the smallest index and then swap
+
 void heapify(int arr[], int n, int index)
 {
     // let the passed root of the tree to be largest
@@ -45,12 +48,28 @@ void printeheap(int arr[], int n)
     cout << endl;
 }
 
+// Heap Sort
+void heapsort(int arr[], int n)
+{
+    // First conver the given array to max-heap
+    buildheap(arr, n);
+    // Swapping the root with the last and deleting the last element
+    for (int i = n - 1; i >= 0; --i)
+    {
+        swap(arr[0], arr[i]);
+        // heapify the root again
+        // Size of heap keeps on decreasing therefore size=i
+        heapify(arr, i, 0);
+    }
+}
+
 // Driver Main
 int main()
 {
     int arr[] = {1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17};
     int N = sizeof(arr) / sizeof(arr[0]);
-    buildheap(arr, N);
+    // buildheap(arr, N);
+    heapsort(arr,N);
     printeheap(arr, N);
     return 0;
 }
