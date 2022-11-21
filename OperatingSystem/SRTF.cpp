@@ -30,7 +30,6 @@ bool check(int arr[], int n)
     return true;
 }
 
-// Driver Main
 int main()
 {
     int n = 5;
@@ -39,8 +38,8 @@ int main()
     int burst_time[] = {6, 2, 8, 3, 4};
     int burst_time_original[] = {6, 2, 8, 3, 4};
 
-    int is_complete[] = {0, 0, 0, 0, 0}; // To keep track of the completed processes
-
+    // To keep track of the completed processes
+    int is_complete[] = {0, 0, 0, 0, 0};
     int tat[] = {0, 0, 0, 0, 0};
     int waiting_time[] = {0, 0, 0, 0, 0};
     int exit_time[] = {0, 0, 0, 0, 0};
@@ -60,11 +59,11 @@ int main()
         }
     }
 
-    // Time variable to keep track of the time
-    int time = arrival_time[0];
+    int time = 0;
     while (!check(is_complete, n))
     {
         int j = 0;
+
         // Checking how many process have arrival time <= current time and then setting the j pointer accordingly
         for (int i = 0; i < n; i++)
         {
@@ -77,13 +76,16 @@ int main()
         // Running the task with the minimum BT
         int running = minimumBT(burst_time, j);
 
-        // Updating the time variable
-        time = time + burst_time[running];
+        // Updating the time variable and reducing the time variable by 1
+        ++time;
+        --burst_time[running];
 
-        burst_time[running] = 0;
-        is_complete[running] = 1;
-
-        exit_time[running] = time;
+        // Check for the process completion
+        if (burst_time[running] == 0)
+        {
+            is_complete[running] = 1;
+            exit_time[running] = time;
+        }
     }
 
     // Calculating the TurnAroundTime and Waiting Time for (int i = 0; i < n; i++)
@@ -109,5 +111,7 @@ int main()
     {
         cout << process[i] << "\t" << arrival_time[i] << "\t" << burst_time_original[i] << "\t" << waiting_time[i] << "\t" << tat[i] << "\t" << exit_time[i] << endl;
     }
+    return 0;
+
     return 0;
 }
