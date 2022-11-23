@@ -26,7 +26,7 @@ int main()
     int finished[n] = {0, 0, 0, 0, 0};//To keep track of the allocated processes
 
     int ans[n];  // Stores the final safe sequence
-    int ind = 0; // Global index for the and matrix
+    int ind = 0; // Global index for the ans matrix
 
     // Need=Max-Allocation
     int need[n][m];
