@@ -5,6 +5,7 @@ struct Node
     int data;
     struct Node *lchild;
     struct Node *rchild;
+    //Constructor to create a new node
     Node(int data)
     {
         this->data = data;
@@ -190,10 +191,12 @@ Node *nodedelete(Node *root, int key)
     }
     else
     {
+        //Case 1 if the node to be deleted had no childrens
         if (root->lchild == NULL && root->rchild == NULL)
         {
             return NULL;
         }
+        //Case 2 if the node to be deleted had 1 child
         else if (root->lchild == NULL)
         {
             Node *temp = root->rchild;
@@ -206,7 +209,7 @@ Node *nodedelete(Node *root, int key)
             free(root);
             return temp;
         }
-        // For 2 child
+        // Case 3 if the node to be deleted has 2 children
         Node *temp = minimum(root->rchild);
         root->data = temp->data;
         root->rchild = nodedelete(root->rchild, temp->data);
