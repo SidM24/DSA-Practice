@@ -41,3 +41,21 @@ mindistance(distance[],included[])
     }
     return min_index;
 }
+
+
+function Dijkstra(Graph, source):
+  for each vertex v in Graph:
+    distance[v] = infinity
+    
+ distance[source] = 0
+ G = the set of all nodes of the Graph
+ 
+ while G is non-empty:
+     Q = node in G with the least dist[ ]
+     mark Q visited
+     for each neighbor N of Q:
+         alt_dist = distance[Q] + dist_between(Q, N)
+         if alt-dist < distance[N]
+             distance[N] := alt_dist
+             
+ return distance[ ]
